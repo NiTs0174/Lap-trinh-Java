@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <title>Cập nhật thương hiệu</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <h4>
+        <a th:href="@{/brands}">Danh sách</a> / Cập nhật thương hiệu
+    </h4>
+    <form th:action="@{/brands/update/{id}(id=${brand.id})}"
+          th:object="${brand}" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên hãng:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}">Tên không được để trống</div>
+        </div>
+        <div class="mb-3">
+            <label for="headquarters" class="form-label">Nơi sản xuất:</label>
+            <input type="text" th:field="*{headquarters}" class="form-control" id="headquarters" required>
+        </div>
+        <div class="mb-3">
+            <label for="founded_year" class="form-label">Năm sản xuất:</label>
+            <input type="number" th:field="*{founded_year}" class="form-control" id="founded_year" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a th:href="@{/brands}" class="btn btn-link">Quay lại danh sách</a>
+    </form>
+</section>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+</body>
+</html>

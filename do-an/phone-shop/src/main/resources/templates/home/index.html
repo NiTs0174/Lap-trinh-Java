@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<!-- Mirrored from easetemplate.com/free-website-templates/mobistore/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Nov 2021 09:40:15 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="create ecommerce website template for your online store, responsive mobile templates">
+    <meta name="keywords" content="ecommerce website templates, online store,">
+    <title>Trang chủ</title>
+    <!-- Bootstrapppppp -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
+    <!-- owl-carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+    <link href="/css/owl.theme.default.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<section layout:fragment="content">
+    <!-- slider -->
+    <div class="slider">
+        <div class="owl-carousel owl-one owl-theme">
+            <div class="item">
+                <div class="slider-img">
+                    <img src="images/slider_1.jpg" alt="">
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-8 col-sm-6 col-xs-12">
+                            <div class="slider-captions">
+                                <div class="brand-img">
+                                    <img src="images/mi_logo.png" alt="">
+                                </div>
+                                <h1 class="slider-title">Red Mi <span>Y1</span></h1>
+                                <p class="hidden-xs">LED Selfie-light | Fingerprint sensor | Dedicated microSD card slot Snapdragon 435 octa-core processor </p>
+                                <p class="slider-price">$138.99 </p>
+                                <a href="cart.html" class="btn btn-primary btn-lg hidden-xs">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="slider-img"><img src="images/slider_2.jpg" alt=""></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-8 col-sm-6 col-xs-12">
+                            <div class="slider-captions">
+                                <div class="brand-img">
+                                    <img src="images/google_logo.png" alt="">
+                                </div>
+                                <h1 class="slider-title">Google Pixel 2</h1>
+                                <p class="hidden-xs">The latest Qualcomm Snapdragon 835 processor | Water-resistant metal unibody | Up to 7 hours of battery.</p>
+                                <p class="slider-price">$ 938.10</p>
+                                <a href="cart.html" class="btn btn-primary btn-lg hidden-xs">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="slider-img"><img src="images/slider_3.jpg" alt=""></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-8 col-sm-6 col-xs-12">
+                            <div class="slider-captions">
+                                <div class="brand-img">
+                                    <img src="images/apple_logo.png" alt="">
+                                </div>
+                                <h1 class="slider-title">iphone 8 plus  </h1>
+                                <p class="hidden-xs">5.5 inch Retina HD Display | 12MP wide-angle cameras
+                                    <br> | 64 GB &amp; 256 GB ROM Memory</p>
+                                <p class="slider-price">$759.64</p>
+                                <a href="cart.html" class="btn btn-primary btn-lg hidden-xs">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.slider -->
+
+    <!-- mobile showcase -->
+    <div class="space-medium">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="showcase-block">
+                        <div class="display-logo ">
+                            <a th:href="@{/phones/category/1}"> <img src="/images/nexus.png" alt=""></a>
+                        </div>
+                        <div class="showcase-img">
+                            <a th:href="@{/phones/category/2}"> <img src="/images/display_img_1.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="showcase-block active">
+                        <div class="display-logo alignleft">
+                            <a th:href="@{/phones/brand/1}">  <img src="/images/iphone.png" alt=""></a>
+                        </div>
+                        <div class="showcase-img">
+                            <a th:href="@{/phones/brand/1}"><img src="/images/display_img_2.png" alt="" style="padding-left: 80px;"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="showcase-block ">
+                        <div class="display-logo ">
+                            <a th:href="@{/phones/brand/2}"> <img src="/images/samsung.png" alt=""></a>
+                        </div>
+                        <div class="showcase-img">
+                            <a th:href="@{/phones/brand/2}"><img src="/images/display_img_3.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.mobile showcase -->
+
+    <!-- latest products -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-head">
+                        <h3 class="head-title">Sản phẩm mới nhất</h3>
+                    </div>
+                    <div class="box-body" >
+                        <div class="row" >
+                            <!-- product -->
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" th:each="phone : ${phones}" th:if="${phone.quantity > 0}">
+                                <div class="product-block">
+                                    <div class="product-img">
+                                        <img th:src="@{/images/} + ${phone.imageUrl}" alt="Image" height="120" width="150">
+                                    </div>
+                                    <div class="product-content">
+                                        <h5><a th:href="@{/detail/{id}(id=${phone.id})}" class="product-title" th:text="${phone.name}"></a></h5>
+                                        <div class="product-meta">
+                                            <a th:href="@{/detail/{id}(id=${phone.id})}" id="price" class="product-price vnd" th:text="${phone.price}"></a>
+<!--                                            <a href="" class="discounted-price">$1400</a>-->
+<!--                                            <span class="offer-price">20%off</span>-->
+                                        </div>
+
+                                        <div class="shopping-btn d-flex justify-content-center align-items-center">
+<!--                                            <a th:href="@{/detail/{id}(id=${phone.id})}" class="product-btn btn-like mr-2">-->
+<!--                                                <i class="fa fa-heart"></i>-->
+<!--                                            </a>-->
+                                            <form th:action="@{/cart/add}" method="post" class="m-0">
+                                                <input type="hidden" name="quantity" min="1" value="1">
+                                                <input type="hidden" th:value="${phone.id}" name="phoneId"/>
+                                                <button type="submit" class="btn btn-warning btn-sm product-btn btn-cart">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.latest products -->
+
+    <!-- seller products -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-head">
+                        <h3 class="head-title">Bán chạy nhất</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-carousel">
+            <div class="box-body">
+                <div class="row">
+                    <div class="owl-carousel owl-two owl-theme">
+                        <!-- product -->
+                        <div class="item">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="product-block">
+                                    <div class="product-img"><img src="images/product_img_5.png" alt=""></div>
+                                    <div class="product-content">
+                                        <h5><a href="#" class="product-title">Apple iPhone 6 <strong>(32 GB, Gold)</strong></a></h5>
+                                        <div class="product-meta"><a href="#" class="product-price">$1700</a>
+                                            <a href="#" class="discounted-price">$2000</a>
+                                            <span class="offer-price">20%off</span>
+                                        </div>
+                                        <div class="shopping-btn">
+                                            <a href="#" class="product-btn btn-like"><i class="fa fa-heart"></i></a>
+                                            <a href="#" class="product-btn btn-cart"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.product -->
+                        </div>
+                        <div class="item">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="product-block">
+                                    <div class="product-img"><img src="images/product_img_6.png" alt=""></div>
+                                    <div class="product-content">
+                                        <h5><a href="#" class="product-title">Apple iPhone 7 <strong>(256 GB, Black)</strong> </a></h5>
+                                        <div class="product-meta"><a href="#" class="product-price">$1400</a>
+                                            <a href="#" class="discounted-price"><strike>$1800</strike></a>
+                                            <span class="offer-price">20%off</span>
+                                        </div>
+                                        <div class="shopping-btn">
+                                            <a href="#" class="product-btn btn-like"><i class="fa fa-heart"></i></a>
+                                            <a href="#" class="product-btn btn-cart"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="product-block">
+                                    <div class="product-img"><img src="images/product_img_7.png" alt=""></div>
+                                    <div class="product-content">
+                                        <h5><a href="#" class="product-title">Apple iPhone 6S <strong>(32GB, Gold)</strong> </a></h5>
+                                        <div class="product-meta"><a href="#" class="product-price">$1300</a>
+                                            <a href="#" class="discounted-price"><strike>$2000</strike></a>
+                                            <span class="offer-price">20%off</span>
+                                        </div>
+                                        <div class="shopping-btn">
+                                            <a href="#" class="product-btn btn-like"><i class="fa fa-heart"></i></a>
+                                            <a href="#" class="product-btn btn-cart"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="product-block">
+                                    <div class="product-img"><img src="images/product_img_8.png" alt=""></div>
+                                    <div class="product-content">
+                                        <h5><a href="#" class="product-title">Apple iPhone X <strong>(64 GB, Grey)</strong></a></h5>
+                                        <div class="product-meta"><a href="#" class="product-price">$1200</a>
+                                            <a href="#" class="discounted-price"><strike>$2000</strike></a>
+                                            <span class="offer-price">20%off</span>
+                                        </div>
+                                        <div class="shopping-btn">
+                                            <a href="#" class="product-btn btn-like"><i class="fa fa-heart"></i></a>
+                                            <a href="#" class="product-btn btn-cart"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.seller products -->
+
+    <!-- cta -->
+    <!-- /.cta -->
+
+    <!-- features -->
+    <div class="bg-default pdt40 pdb40">
+        <div class="container">
+            <div class="row">
+                <!-- features -->
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="feature-left">
+                        <div class="feature-outline-icon">
+                            <i class="fa fa-credit-card"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="text-white">Thanh toán an toàn</h3>
+                            <p>Mang đến dịch vụ trải nghiệm thoải mái nhất, an toàn, tiện dụng, Mobistore! </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- features -->
+                <!-- features -->
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="feature-left">
+                        <div class="feature-outline-icon">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="text-white">Phản hồi 24/7</h3>
+                            <p>Trợ giúp liên lạc, tham khảo , tra cứu 24/7!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- features -->
+                <!-- features -->
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="feature-left feature-circle">
+                        <div class="feature-outline-icon">
+                            <i class="fa fa-rotate-left "></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="text-white">Đổi trả miễn phí</h3>
+                            <p>Miễn phí bảo hành đổi trả lên đến 365 ngày!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- features -->
+                <!-- features -->
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="feature-left">
+                        <div class="feature-outline-icon">
+                            <i class="fa fa-dollar"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="text-white">Giá tốt nhất</h3>
+                            <p>Giá thành tốt nhất trong thị trường. Cập nhật sản phẩm 24/7!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- features -->
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/menumaker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery.sticky.js"></script>
+    <script type="text/javascript" src="/js/sticky-header.js"></script>
+    <script type="text/javascript" src="/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/js/multiple-carousel.js"></script>
+</section>
+</body>
+<!-- Mirrored from easetemplate.com/free-website-templates/mobistore/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Nov 2021 09:40:40 GMT -->
+</html>

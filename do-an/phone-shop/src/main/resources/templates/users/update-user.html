@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Thông tin tài khoản</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- /. header-section-->
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li>Thông tin tài khoản</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- login-form -->
+    <div class="content">
+        <div class="container">
+            <div class="box">
+                <div class="row-account">
+                    <div class="left-container">
+                        <div class="user-infor">
+                            Xin chào, <span sec:authentication="name"></span>
+                        </div>
+                        <div class="side-bar-content">
+                            <ul>
+                                <a href="/update"><li class="slide-bar active"><i class="fa fa-edit"></i><span>Thông tin tài khoản</span></li></a>
+                                <a href="/profile-receipt"><li class="slide-bar"><i class="fas fa-money-check"></i><span>Thông tin đơn hàng</span></li></a>
+                                <a href="/change-password"> <li class="slide-bar"><i class="fas fa-lock"></i><span> Đổi mật khẩu</span></li></a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="right-container">
+                        <h3 class="title-content">Thông tin tài khoản</h3>
+                        <div class="account-infor">
+                            <form action="" th:action="@{/update}" th:object="${user}" method="post">
+                                <div th:if="${successMessage}" class="alert alert-success">
+                                    <p th:text="${successMessage}"></p>
+                                </div>
+                                <div class="form-control">
+                                    <label for="fullName" class="input-label">HỌ & TÊN:</label>
+                                    <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" placeholder="Thêm họ tên" class="input-field">
+                                </div>
+                                <div class="form-control">
+                                    <label for="address" class="input-label">ĐỊA CHỈ GIAO HÀNG:</label>
+                                    <input type="text" id="address" name="address" th:value="${user.address}" placeholder="Địa chỉ" class="input-field">
+                                </div>
+                                <div class="form-control">
+                                    <label for="dateOfBirth" class="input-label">NGÀY SINH:</label>
+                                    <input type="date" id="dateOfBirth" name="dateOfBirth" th:value="${user.dateOfBirth}" placeholder="nn/mm/yyyy" class="input-field">
+                                </div>
+<!--                                <div class="form-control">-->
+<!--                                    <label for="gender" class="input-label">GIỚI TÍNH:</label>-->
+<!--                                    <select id="gender" name="gender" required>-->
+<!--                                        <option class="input-radio" value="Male" th:selected="${user.gender == 'Male'}">Nam</option>-->
+<!--                                        <option class="input-radio" value="Female" th:selected="${user.gender == 'Female'}">Nữ</option>-->
+<!--                                        <option class="input-radio" value="Other" th:selected="${user.gender == 'Other'}">Khác</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+                                <div class="form-control">
+                                    <label for="gender" class="input-label">GIỚI TÍNH:</label>
+                                    <select id="gender" name="gender" required class="form-control w" style="border: 1px solid gray; border-radius: 2px; padding: 5px; width:600px;">
+                                        <option value="Male" th:selected="${user.gender == 'Male'}">Nam</option>
+                                        <option value="Female" th:selected="${user.gender == 'Female'}">Nữ</option>
+                                        <option value="Other" th:selected="${user.gender == 'Other'}">Khác</option>
+                                    </select>
+                                </div>
+<!--                                <div class="form-control">-->
+<!--                                    <label class="input-label"> Giới tính </label>-->
+<!--                                    <input type="radio" value="male" name="gender" th:checked="${user.gender == 'Male'}" class="input-radio"> Nam-->
+<!--                                    <input type="radio" value="female" name="gender" th:checked="${user.gender == 'Female'}" class="input-radio"> Nữ-->
+<!--                                    <input type="radio" value="other" name="gender" th:checked="${user.gender == 'Other'}" class="input-radio"> Khác-->
+<!--                                </div>-->
+                                <div class="form-control">
+                                    <label for="phone" class="input-label"> Số điện thoại </label>
+                                    <input type="text" id="phone" th:field="*{phone}" placeholder="Thêm số điện thoại" class="input-field">
+                                </div>
+                                <button type="submit" class="btn-update">Cập nhật</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.features -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/menumaker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery.sticky.js"></script>
+    <script type="text/javascript" src="/js/sticky-header.js"></script>
+</section>
+</body>
+</html>

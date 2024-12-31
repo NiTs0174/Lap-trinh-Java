@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<!-- Mirrored from easetemplate.com/free-website-templates/mobistore/login-form.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Nov 2021 09:41:05 GMT -->
+<head>
+    <title>Chi tiết đơn hàng</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]--></head>
+<body>
+<section layout:fragment="content">
+    <!-- /. header-section-->
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li>Chi tiết đơn hàng</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- login-form -->
+    <div class="content">
+        <div class="container">
+            <div class="box">
+                <div class="row-account">
+                    <div class="left-container">
+                        <div class="user-infor">
+                            Xin chào, <span sec:authentication="name"></span>
+                        </div>
+                        <div class="side-bar-content">
+                            <ul>
+                                <a href="/update"><li class="slide-bar active"><i class="fa fa-edit"></i><span>Thông tin tài khoản</span></li></a>
+                                <a href="/profile-receipt"><li class="slide-bar"><i class="fas fa-money-check"></i><span>Thông tin đơn hàng</span></li></a>
+                                <a href="/change-password"> <li class="slide-bar"><i class="fas fa-lock"></i><span> Đổi mật khẩu</span></li></a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="right-container">
+                        <h3 class="title-content">Chi tiết đơn hàng</h3>
+                        <div class="receipt-infor-details">
+                            <div class="title-receipt">
+                                <div class="left-content content">
+                                    <h4>ĐƠN HÀNG</h4>
+                                    <p class="receipt-id" th:text="'Mã đơn hàng: ' + ${order.id}"></p>
+                                    <p class="receipt-time" th:text="'Đặt hàng: ' + ${order.orderDate}"></p>
+                                </div>
+                                <p></p>
+                                <div class="right-content content">
+                                    <h4>THÔNG TIN NHẬN HÀNG</h4>
+                                    <p th:text="'Tên KH: ' + ${order.customerName}"></p>
+                                    <p th:text="'Liên hệ: ' + ${order.phoneNumber}"></p>
+                                    <p class="address" th:text="${order.shippingAddress}"></p>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Thành tiền</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="detail : ${order.orderDetails}">
+                                    <td>
+                                        <div class="product-title">
+                                            <img th:src="@{/images/{imageName}(imageName=${detail.phone.imageUrl})}" alt="Image" height="120" width="150">
+                                            <div>
+                                                <p th:text="${detail.phone.name}"></p>
+                                                <p th:text="'Màu sắc: ' + ${detail.phone.color}"></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><div id="price" class="item-center vnd" th:text="${detail.phone.price}"></div></td>
+                                    <td><div class="item-center" th:text="${detail.quantity}"></div></td>
+                                    <td><div id="price" class="item-center vnd" th:text="${detail.phone.price*detail.quantity}"></div></td>
+                                </tr>
+                                </tbody>
+                                <!--                                <tfoot>-->
+                                <!--                                <tr>-->
+                                <!--                                    <td scope="row"></td>-->
+                                <!--                                    <td></td>-->
+                                <!--                                    <td scope="row">-->
+                                <!--                                        <div>-->
+                                <!--                                            <p>Tổng tiền:</p>-->
+                                <!--                                            <p>Phí vận chuyển:</p>-->
+                                <!--                                            <p>Tổng thanh toán:</p>-->
+                                <!--                                        </div>-->
+                                <!--                                    </td>-->
+                                <!--                                    <td>-->
+                                <!--                                        <div>-->
+                                <!--                                            <p id="price" class="vnd" th:text="${totalPrice}"></p>-->
+                                <!--                                            <p>50.000đ</p>-->
+                                <!--                                            <p id="price" class="vnd" th:text="${totalPrice + 50000}"></p>-->
+                                <!--                                        </div>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
+                                <!--                                </tfoot>-->
+                            </table>
+                            <a href="/profile-receipt" class="redirect-to-receipt text-blue"><i class="fas fa-long-arrow-alt-left"></i> Danh sách đơn hàng</a>
+                        </div>
+                    </div>
+                    <!-- /.features -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.login-form -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/menumaker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery.sticky.js"></script>
+    <script type="text/javascript" src="/js/sticky-header.js"></script>
+</section>
+</body>
+<!-- Mirrored from easetemplate.com/free-website-templates/mobistore/login-form.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Nov 2021 09:41:06 GMT -->
+</html>

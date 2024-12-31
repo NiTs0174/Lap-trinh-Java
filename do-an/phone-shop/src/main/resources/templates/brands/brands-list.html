@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <title> Thương hiệu </title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>Danh sách thương hiệu</h1>
+    <div>
+        <a th:href="@{/brands/add}" class="btn btn-primary mb-3"><i class="fas fa-plus-square"></i></a>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Tên thương hiệu</th>
+            <th>Nơi sản xuất</th>
+            <th>Năm sản xuất</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="brand : ${brands}">
+            <td th:text="${brand.name}"></td>
+            <td th:text="${brand.headquarters}"></td>
+            <td th:text="${brand.founded_year}"></td>
+            <td>
+                <a th:href="@{/brands/edit/{id}(id=${brand.id})}" class="btn btn-success btn-sm"><i class="txt-center fas fa-edit"></i></a>
+                <a th:href="@{/brands/delete/{id}(id=${brand.id})}"
+                   class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc xóa thông tin không?')"><i class="txt-center menu-icon fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

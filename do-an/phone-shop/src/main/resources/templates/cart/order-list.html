@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <title>Quản lí đơn hàng</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
+    </link><!-- Custom styles for this template -->
+    <link href="/css/css_admin/admin.css" rel="stylesheet" />
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="border mt-3">
+        <h4 class="text-center mt-3 mb-4">Quản lí đơn hàng</h4>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!--TÌM KIẾM-->
+            <form class="form-inline d-flex"
+                  th:action="${#authorization.expression('hasAnyAuthority(''ADMIN'')') ?'/order/search' : '/order/search'}" method="get">
+                <input class="form-control mr-2" type="search" placeholder="Tìm mã đơn..." aria-label="Search" name="key">
+                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+
+        <table class="table table-hover table-text-center" id="receipt-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Mã đơn hàng</th>
+                <th scope="col">Mã khách hàng</th>
+                <th scope="col">Ngày lập</th>
+                <th scope="col">Chi tiết đơn hàng</th>
+                <th scope="col">Trạng thái đơn hàng</th>
+            </tr>
+            </thead>
+            <tbody id="content-table">
+            <tr style="display: table-row;" th:each="order : ${order}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.user.id}"></td>
+                <td th:text="${order.orderDate}"></td>
+                <td class="detail">
+                    <a th:href="@{/order/details/{orderId}(orderId=${order.id})}">
+                        Chi tiết <i class="fa fa-external-link-alt"></i>
+                    </a>
+                </td>
+                <!--                <td class="detail"><a data-toggle="modal" data-target="#exampleModal" > Chi tiết <i class="fa fa-external-link-alt"></i></a>-->
+                <!--                    &lt;!&ndash; Modal &ndash;&gt;-->
+                <!--                </td>-->
+                <td>
+                    <form th:action="@{/order/details/{orderId}(orderId=${order.id})}" method="post">
+                        <input type="hidden" name="_method" value="put"/>
+                        <select name="status">
+                            <option style="color: yellow;" value="Chờ xác nhận" th:selected="${order.status == 'Chờ xác nhận'}">Chờ xác nhận</option>
+                            <option style="color: yellow;" value="Đang giao hàng" th:selected="${order.status == 'Đang giao hàng'}">Đang giao hàng</option>
+                            <option style="color: green;" value="Đã vận chuyển" th:selected="${order.status == 'Đã vận chuyển'}">Đã vận chuyển</option>
+                            <option style="color: green;" value="Đã giao hàng" th:selected="${order.status == 'Đã giao hàng'}">Đã giao hàng</option>
+                            <option style="color: red;" value="Đã hủy đơn" th:selected="${order.status == 'Đã hủy đơn'}">Đã hủy đơn</option>
+                        </select>
+                        <button type="submit" class="btn btn-info">Cập nhật</button>
+                    </form>
+                </td>
+                <!--                <td class="confirm" id="confirm-session-1">-->
+                <!--                  <span>-->
+                <!--                    <input class="confirm-check" type="checkbox" value="confirm-check" name="confirm-check">-->
+                <!--                    <label title="Xác nhận đơn hàng" class="label-check active" data-toggle="modal" data-target="#pop-confirmed-1"><i class="fas fa-check-square"></i></label>-->
+                <!--                    <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="pop-confirmed-1">-->
+                <!--                      <div class="modal-dialog">-->
+                <!--                        <div class="modal-content">-->
+                <!--                          <div class="modal-header">-->
+                <!--                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận đơn hàng</h5>-->
+                <!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                <!--                              <i aria-hidden="true">×</i>-->
+                <!--                            </button>-->
+                <!--                          </div>-->
+                <!--                          <div class="modal-body"> Bạn có muốn xác nhận đơn hàng này không? </div>-->
+                <!--                          <div class="modal-footer">-->
+                <!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>-->
+                <!--                            <button type="button" class="btn btn-primary" data-dismiss="modal">Xác nhận</button>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </span>-->
+
+                <!--                    <span>-->
+                <!--                    <input class="confirm-check" type="checkbox" value="confirm-delivered" name="confirm-deliverd">-->
+                <!--                    <label title="Xác nhận vận chuyển thành công" class="label-delivered disable" data-target="#pop-delivered-1"><i class="fas fa-truck"></i></label>-->
+                <!--                    <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="pop-delivered-1">-->
+                <!--                      <div class="modal-dialog">-->
+                <!--                        <div class="modal-content">-->
+                <!--                          <div class="modal-header">-->
+                <!--                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận vận chuyển</h5>-->
+                <!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                <!--                              <i aria-hidden="true">×</i>-->
+                <!--                            </button>-->
+                <!--                          </div>-->
+                <!--                          <div class="modal-body"> Bạn có muốn xác nhận vận chuyển thành công? </div>-->
+                <!--                          <div class="modal-footer">-->
+                <!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>-->
+                <!--                            <button type="button" class="btn btn-primary" data-dismiss="modal">Xác nhận</button>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </span>-->
+
+                <!--                    <span>-->
+                <!--                    <input class="confirm-check" type="checkbox" value="confirm-cancel" name="confirm-cancel">-->
+                <!--                    <label title="Hủy đơn hàng" data-toggle="modal" class="label-cancel warning" data-target="#pop-cancel-1"><i class="fas fa-trash"></i></label>-->
+                <!--                    <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="pop-cancel-1">-->
+                <!--                      <div class="modal-dialog">-->
+                <!--                        <div class="modal-content">-->
+                <!--                          <div class="modal-header">-->
+                <!--                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận hủy đơn</h5>-->
+                <!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                <!--                              <i aria-hidden="true">×</i>-->
+                <!--                            </button>-->
+                <!--                          </div>-->
+                <!--                          <div class="modal-body">-->
+                <!--                            Bạn có muốn xác nhận hủy đơn hàng này không?-->
+                <!--                          </div>-->
+                <!--                          <div class="modal-footer">-->
+                <!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>-->
+                <!--                            <button type="button" class="btn btn-primary" data-dismiss="modal">-->
+                <!--                                Xác nhận-->
+                <!--                            </button>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </span>-->
+                <!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+
+<!--        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">-->
+<!--            <div class="modal-dialog  detail-modal">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn hàng</h5>-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">×</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <h5>Đơn hàng: DH01</h5>-->
+<!--                        <table width="100%" class="text-center  table content-detail  table-hover">-->
+<!--                            <thead class="thead-light">-->
+<!--                            <tr>-->
+<!--                                <th>Mã khách hàng</th>-->
+<!--                                <th>Tên khách hàng</th>-->
+<!--                                <th><span title="Số điện thoại"> Số điện thoại</span></th>-->
+<!--                                <th>Hình thức thanh toán</th>-->
+<!--                                <th style="min-width: 300px;"> Địa chỉ</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td>KH01</td>-->
+<!--                                <td>Trần Thanh Bảo</td>-->
+<!--                                <td><span title="Số điện thoại"> 09128374822</span></td>-->
+<!--                                <td>Thanh toán khi nhận hàng</td>-->
+<!--                                <td style="min-width: 300px;">-->
+<!--                                    Khu phố 6, phường Linh Trung, quận Thủ Đức,TP Hồ Chí Minh-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody></table>-->
+<!--                        <table width="100%" class="text-center  table content-detail  table-hover">-->
+<!--                            <thead class="thead-light">-->
+<!--                            <tr>-->
+<!--                                <th>Hình ảnh</th>-->
+<!--                                <th>Mã sản phẩm</th>-->
+<!--                                <th>Tên sản phẩm</th>-->
+<!--                                <th>Màu sắc</th>-->
+<!--                                <th>Số lượng</th>-->
+<!--                                <th> Giá</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody><tr>-->
+<!--                                <td style="max-width: 140px;"><img src="/images/Product/i12black.png" width="100px" height="100px" alt=""></td>-->
+<!--                                <td>SP01</td>-->
+<!--                                <td>IPhone X 64GB</td>-->
+<!--                                <td><span title="Số điện thoại"> Đen</span></td>-->
+<!--                                <td style="min-width: 300px;">1-->
+<!--                                </td><td style="min-width: 300px;">17.000.000<span style="text-decoration: underline;">đ</span>-->
+<!--                            </td></tr>-->
+<!--                            <tr>-->
+<!--                                <td style="max-width: 140px;"><img src="/images/Product/samsung.png" width="100px" height="100px" alt=""></td>-->
+<!--                                <td>SP02</td>-->
+<!--                                <td>Samsung Galaxy S10</td>-->
+<!--                                <td><span title="Số điện thoại">Trắng</span></td>-->
+<!--                                <td style="min-width: 300px;">1-->
+<!--                                </td><td style="min-width: 300px;">23.000.000<span style="text-decoration: underline;">đ</span>-->
+<!--                            </td></tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+
+    <!--PHÂN TRANG-->
+    <nav aria-label="Page navigation example" th:if="${totalPages > 1}">
+        <ul class="pagination">
+            <li class="page-item" th:class="${order.hasPrevious() ? '' : 'disabled'}">
+                <a class="page-link" th:href="@{/order?page=__${order.number-1}__}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
+                th:class="${order.number == page ? 'active' : ''}">
+                <a class="page-link" th:href="@{/order?page=__${page}__}"
+                   th:text="${page + 1}"></a></li>
+
+            <li class="page-item" th:class="${order.hasNext() ? '' : 'disabled'}">
+                <a class="page-link "
+                   th:href="@{/order?page=__${order.number+1}__}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+    <!-- search -->
+    <script>
+        $(document).ready(function () {
+          $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#content-table tr").filter(function () {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+    </script>
+    <script src="/js/js_admin/divide-page.js"></script>
+    <script src="/js/js_admin/confirmed.js"></script>
+</section>
+</body>
+</html>

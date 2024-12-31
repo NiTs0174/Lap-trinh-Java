@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <title>Cập nhật điện thoại</title>
+    <!-- (1): Khai báo sử dụng thư viện CKEditor -->
+    <script src="/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <div class="container mt-4 ">
+        <h2 style="text-align: center;">Chỉnh sửa thông tin điện thoại</h2>
+        <hr>
+        <form th:action="@{/phones/update/{id}(id=${phone.id})}"
+              th:object="${phone}" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-6 space-top">
+                    <h5 class="spacing_form">Tên sản phẩm</h5>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+                        </div>
+                        <input type="text" class="form-control py-4" th:field="*{name}" required placeholder="Nhập tên sản phẩm">
+                        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">Tên Thương hiệu</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+                            </div>
+                            <!--                        <input type="text" class="form-control py-4" value="" placeholder="Nhập tên thương hiệu">-->
+                            <select th:field="*{brand}" class="form-control">
+                                <option th:each="brand : ${brands}"
+                                        th:value="${brand.id}"
+                                        th:text="${brand.name}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">Giá bán(VND)</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+                            </div>
+                            <input type="number" class="form-control py-4" th:field="*{price}" required placeholder="20.000.000">
+                        </div>
+                    </div>
+                    <!--                <div class="col-6 space-top">-->
+                    <!--                    <h5 class="spacing_form">Giá bán Khuyến mãi(VND)</h5>-->
+                    <!--                    <div class="input-group mb-2">-->
+                    <!--                        <div class="input-group-prepend">-->
+                    <!--                            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>-->
+                    <!--                        </div>-->
+                    <!--                        <input type="text" class="form-control py-4" value="" placeholder="20.000.000">-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                </div>
+                <!--            <div class="row">-->
+                <!--                <div class="col-sm-6 space-top">-->
+                <!--                    <h5 class="spacing_form">Loại sản phẩm</h5>-->
+                <!--                    <select class="form-control w" id="exampleFormControlSelect1">-->
+                <!--                        <option>Mới</option>-->
+                <!--                        <option>Cũ</option>-->
+                <!--                    </select>-->
+                <!--                </div>-->
+                <!--                <div class="col-sm-6 space-top">-->
+                <!--                    <h5 class="spacing_form ">Trình trạng</h5>-->
+                <!--                    <select class="form-control w" id="exampleFormControlSelect1">-->
+                <!--                        <option>Còn hàng</option>-->
+                <!--                        <option>Hết hàng</option>-->
+                <!--                    </select>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <hr>
+                <!-- color -->
+                <div id="color">
+                    <div class="boder-color">
+                        <div class="row boder-color1">
+                            <div class="col-4 space-top " id="chooseColor" name="1">
+                                <h5 class="spacing_form"><strong>Màu sắc</strong></h5>
+                                <div class="input-group mb-2 ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+                                    </div>
+                                    <select name="" class="form-control w " th:field="*{color}">
+                                        <option value="">Màu sắc</option>
+                                        <option th:value="Đen">Đen</option>
+                                        <option th:value="Trắng">Trắng</option>
+                                        <option class="active" th:value="Đỏ">Đỏ</option>
+                                        <option th:value="Xanh">Xanh</option>
+                                        <option th:value="Hồng">Hồng</option>
+                                        <option th:value="Lam">Lam</option>
+                                    </select>
+                                </div>
+                            </div>
+
+<!--                            <div class="col-4 space-top">-->
+<!--                                <h5 class="spacing_form ">URL hình ảnh</h5>-->
+<!--                                <input class="mt-2" type="file" name="imagePhone" accept=".jpg,.png,.jpge">-->
+                                <!--                                    <img height="120" width="150" th:src="@{/images/} + ${phone.image}" alt="Image">-->
+<!--                            </div>-->
+                            <div class="col-4 space-top">
+                                <h5 class="spacing_form ">URL hình ảnh</h5>
+                                <input type="file" class="mt-2" id="imagePhone" name="imagePhone" accept=".jpg,.png,.jpeg">
+                            </div>
+
+                            <div class="col-4 space-top">
+                                <h5 class="spacing_form">Số lượng</h5>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-tag "></i></div>
+                                    </div>
+                                    <input type="number" class="form-control py-4" th:field="*{quantity}" placeholder="Nhập số lượng">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display:none;">
+                                <label for="imagePhone">URL hình ảnh</label>
+                                <input type="text" class="form-control" id="imageUrl" name="imageUrl" th:value="${phone.imageUrl}" hidden>
+                            </div>
+                        </div>
+
+                        <!--                    <div class="row boder-color2">-->
+                        <!--                        <div class="col-3 space-top">-->
+                        <!--                            <h5 class="spacing_form ">URL ảnh mô tả 1</h5>-->
+                        <!--                            <input class="mt-2" type="file" accept=".jpg,.png,.jpge">-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-3 space-top">-->
+                        <!--                            <h5 class="spacing_form ">URL ảnh mô tả 2</h5>-->
+                        <!--                            <input class="mt-2" type="file" accept=".jpg,.png,.jpge">-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-3 space-top">-->
+                        <!--                            <h5 class="spacing_form ">URL ảnh mô tả 3</h5>-->
+                        <!--                            <input class="mt-2" type="file" accept=".jpg,.png,.jpge">-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-3 space-top">-->
+                        <!--                            <h5 class="spacing_form ">URL ảnh mô tả 4</h5>-->
+                        <!--                            <input class="mt-2" type="file" accept=".jpg,.png,.jpge">-->
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+                    </div>
+                </div>
+                <!-- add color -->
+                <!--            <a data-toggle="modal" data-target="#themMau" style="float: right;" name="1"-->
+                <!--               class="btn icon-btn btn-success" href="#">-->
+                <!--                <span><i style="font-size: 1.2em;" class="fa fa-plus-circle" aria-hidden="true"></i></span>-->
+                <!--                Thêm màu-->
+                <!--            </a>-->
+                <hr>
+                <div class="form-group space-top" style="margin-top: 70px;">
+                    <h5 class="spacing_form">Giới thiệu sản phẩm</h5>
+                    <form action="" method="post">
+                        <!-- (2): textarea sẽ được thay thế bởi CKEditor -->
+                        <label for="edit"></label>
+                        <textarea th:field="*{description}" required id="edit" name="edit" cols="200" rows="80">
+                    </textarea>
+                        <!-- (3): Code Javascript thay thế textarea có id='editor1' bởi CKEditor -->
+                        <script>
+                            CKEDITOR.replace('edit');
+                        </script>
+                    </form>
+                </div>
+
+                <hr>
+                <!-- thong so ki thuat -->
+                <h3 class="text-center">Thông số kĩ thuật</h3>
+                <div class="row">
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">Màn hình</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+                            </div>
+                            <select class="form-control w" th:field="*{screen}">
+                                <option value=""><strong>Màn hình</strong></option>
+                                <option value="QQVGA">QQVGA</option>
+                                <option value="QVGA">QVGA</option>
+                                <option value="HD+">HD+</option>
+                                <option value="Full HD+">Full HD+</option>
+                                <option value="1.5K">1.5K</option>
+                                <option value="1.5K+">1.5K+</option>
+                                <option value="2K+">2K+</option>
+                                <option value="Retina(iPhone)">Retina(iPhone)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">Hệ điều hành</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-cogs"></i></div>
+                            </div>
+                            <!--                        <input type="text" class="form-control py-4" value="" placeholder="Nhập tên hệ điều hành">-->
+                            <select th:field="*{category}" class="form-control" id="category">
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.name}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">Camera sau</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-camera"></i></div>
+                            </div>
+                            <input type="text" class="form-control py-4" th:field="*{rear_camera}" placeholder="Nhập thông số camera sau">
+                        </div>
+                    </div>
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">Camera trước</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-camera"></i></div>
+                            </div>
+                            <input type="text" class="form-control py-4" th:field="*{front_camera}" placeholder="Nhập thông số camera trước">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">CPU</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-hdd"></i></div>
+                            </div>
+                            <select class="form-control w" th:field="*{cpu}">
+                                <option value=""><strong>CPU</strong></option>
+                                <option value="64 GB">64 GB</option>
+                                <option value="128 GB">128 GB</option>
+                                <option value="256 GB">256 GB</option>
+                                <option value="512 GB">512 GB</option>
+                                <option value="1 TB">1 TB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 space-top">
+                        <h5 class="spacing_form">Bộ nhớ</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-sd-card"></i></div>
+                            </div>
+                            <select class="form-control w" th:field="*{memory}">
+                                <option value=""><strong>Memory</strong></option>
+                                <option value="3 GB">3 GB</option>
+                                <option value="4 GB">4 GB</option>
+                                <option value="6 GB">6 GB</option>
+                                <option value="8 GB">8 GB</option>
+                                <option value="12 GB">12 GB</option>
+                                <option value="32 GB">32 GB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-top">
+                    <h5 class="spacing_form">Kết nối</h5>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-wifi"></i></div>
+                        </div>
+                        <input type="text" class="form-control py-4" th:field="*{connect}" placeholder="Nhập loại kết nối">
+                    </div>
+                </div>
+
+                <!--            <div id="thongSoMoi">-->
+                <!--                <div class="boder-color top-s">-->
+                <!--                    <div class="space-top bodertt">-->
+                <!--                        <h5 class="spacing_form">Loại thông số kĩ thuật mới</h5>-->
+                <!--                        <div class="input-group mb-2">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text"></div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control py-4" value="" placeholder="Nhập tên thông số kĩ thuật mới">-->
+                <!--                        </div>-->
+
+                <!--                        <h5 class="spacing_form">Nội dung thông số kĩ thuật mới</h5>-->
+                <!--                        <div class="input-group mb-2">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text"></i></div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control py-4" value="" placeholder="Nhập nội dung">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+
+                <!--            <a onclick="thongSoKt()" style="float: right; color: white;" name="1" class="btn icon-btn btn-success">-->
+                <!--                <span><i style="font-size: 1.2em;" class="fa fa-plus-circle" aria-hidden="true"></i></span>-->
+                <!--                Thêm thông số kĩ thuật-->
+                <!--            </a>-->
+
+                <div class="row" style="margin-top: 60px;">
+                    <input class="btn btn-primary col-sm-3 row space-top space-bottom" type="submit" value="Lưu">
+                    <a href="/phones">Quay lại danh sách</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="themMau" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận thêm màu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có muốn thêm màu mới.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                    <button type="button" onclick="themMau()" id="btnAddColor" data-dismiss="modal" class="btn btn-primary">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- chkeditor -->
+<script src="/ckeditor/ckeditor.js"></script>
+<script>CKEDITOR.replace('ten');</script>
+<!-- /chkeditor -->
+</body>
+</html>
